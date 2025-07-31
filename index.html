@@ -16,7 +16,9 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="https://script.google.com/macros/s/AKfycbwoTyj8mpGYPfWCOxszGA-SPYTSBsJbJoHyFKgIr-b5xSAu-CO9pgE3bCebLGAWCVDnPg/exec?page=manifest">
 
-
+<script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-messaging.js"></script>
+  <script src="firebase-messaging-sw.js"></script>
 
 </head>
 <body>
@@ -122,9 +124,45 @@
 
   <script src="script.js" defer></script>
   <script src="install.js"></script>
+  <button onclick="subscribe()">S’abonner aux notifications</button>
 
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLZolkFzioGRPyl_ysp5XcYpMbWMKXEn0", // 🟢 ton vrai apiKey
+      authDomain: "rubmax.firebaseapp.com",
+      projectId: "rubmax",
+      storageBucket: "rubmax.appspot.com",
+      messagingSenderId: "792152166197", // 🔢 remplace par ton senderId
+      appId: "1:792152166197:web:d68ec39315762642f6c67c"
+    };
 
-<!-- start webpushr code --> <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOZsvaVD4Mme67OWm0_mwhcr3ObYT6IzjVXF03qCfgJNe5JkH6JhUXgXrKK9QH7pMhSvckTODq0HYyOgzBxyBH8' });</script><!-- end webpushr code -->
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    function subscribe() {
+      Notification.requestPermission().then(function(permission) {
+        if (permission === 'granted') {
+          messaging.getToken({ vapidKey: "TON_VAPID_KEY" }) // générée plus bas
+            .then((currentToken) => {
+              if (currentToken) {
+                console.log("Token : ", currentToken);
+                alert("Inscription OK !");
+              } else {
+                console.log("Aucun token.");
+              }
+            }).catch((err) => {
+              console.log("Erreur getToken : ", err);
+            });
+        }
+      });
+    }
+
+    messaging.onMessage(function(payload) {
+      console.log("Message reçu ! ", payload);
+      alert("🔔 Notification : " + payload.notification.title);
+    });
+  </script>
 
 </body>
 </html>
