@@ -16,9 +16,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="https://script.google.com/macros/s/AKfycbwoTyj8mpGYPfWCOxszGA-SPYTSBsJbJoHyFKgIr-b5xSAu-CO9pgE3bCebLGAWCVDnPg/exec?page=manifest">
 
-<script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-messaging.js"></script>
-  <script src="firebase-messaging-sw.js"></script>
+
 
 </head>
 <body>
@@ -126,43 +124,7 @@
   <script src="install.js"></script>
   <button onclick="subscribe()">S’abonner aux notifications</button>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBLZolkFzioGRPyl_ysp5XcYpMbWMKXEn0", // 🟢 ton vrai apiKey
-      authDomain: "rubmax.firebaseapp.com",
-      projectId: "rubmax",
-      storageBucket: "rubmax.appspot.com",
-      messagingSenderId: "792152166197", // 🔢 remplace par ton senderId
-      appId: "1:792152166197:web:d68ec39315762642f6c67c"
-    };
 
-    firebase.initializeApp(firebaseConfig);
-
-    const messaging = firebase.messaging();
-
-    function subscribe() {
-      Notification.requestPermission().then(function(permission) {
-        if (permission === 'granted') {
-          messaging.getToken({ vapidKey: "BDeO2NinNamlxOqPw5Kw-1xQjLDwLcqu1cF62Kx78Lcj4UavkLlpUALbm-5C6x1Vd2wHeBZh-enxSSdqQz6LG8k" }) // générée plus bas
-            .then((currentToken) => {
-              if (currentToken) {
-                console.log("Token : ", currentToken);
-                alert("Inscription OK !");
-              } else {
-                console.log("Aucun token.");
-              }
-            }).catch((err) => {
-              console.log("Erreur getToken : ", err);
-            });
-        }
-      });
-    }
-
-    messaging.onMessage(function(payload) {
-      console.log("Message reçu ! ", payload);
-      alert("🔔 Notification : " + payload.notification.title);
-    });
-  </script>
 
 </body>
 </html>
