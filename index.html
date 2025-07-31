@@ -143,7 +143,7 @@
     function subscribe() {
       Notification.requestPermission().then(function(permission) {
         if (permission === 'granted') {
-          messaging.getToken({ vapidKey: "TON_VAPID_KEY" }) // générée plus bas
+          messaging.getToken({ vapidKey: "BDeO2NinNamlxOqPw5Kw-1xQjLDwLcqu1cF62Kx78Lcj4UavkLlpUALbm-5C6x1Vd2wHeBZh-enxSSdqQz6LG8k" }) // générée plus bas
             .then((currentToken) => {
               if (currentToken) {
                 console.log("Token : ", currentToken);
