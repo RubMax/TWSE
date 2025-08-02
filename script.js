@@ -48,6 +48,11 @@ window.deferredPrompt = window.deferredPrompt || null;
     }, 2000);
 }
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log("✅ Service Worker enregistré"))
+    .catch((e) => console.error("❌ Erreur SW:", e));
+}
 
     function setupHorizontalDragScroll() {
       const container = document.getElementById('nav-container');
